@@ -1,0 +1,44 @@
+<div class="w-full min-h-screen bg-primary flex justify-center items-center p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl flex flex-col p-6 gap-6 pt-14">
+        <div class="w-full h-full flex flex-col justify-center items-center pb-6">
+            <div
+                class="flex items-center justify-center bg-gradient-to-r from-blue-400 to-blue-500 w-22 h-22 rounded-full animate-bounce">
+                <lucide-icon [img]="BabyIcon" class="w-12 h-12 text-white"></lucide-icon>
+            </div>
+            <h1 class="text-3xl font-bold text-cyan-950">Bem Vindo!</h1>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-8">
+            <!-- input email -->
+            <div class="relative">
+                <input formControlName="email" type="text" placeholder="Digite seu Email"
+                    class="input-primary" />
+                <div class="input-icon">
+
+                    <lucide-icon [img]="BabyIcon" class="w-6 h-6 text-white"></lucide-icon>
+                </div>
+            </div>
+
+
+
+            <!-- input senha -->
+            <div class="relative">
+                <input formControlName="senha" type="password" placeholder="Digite sua senha"
+                    class="input-primary"/>
+                <div class="input-icon">
+
+                    <lucide-icon [img]="KeyIcon" class="w-6 h-6 text-white"></lucide-icon>
+                </div>
+            </div>
+
+
+            <button [disabled]="form.invalid" [class]="form.invalid ? 'btn-invalid' : 'btn-primary'">Entrar</button>
+
+            <div class="text-center mt-6 pt-4 border-t border-gray-100">
+                <p class="text-gray-500">Novo por aqui? <a class="text-blue-500 font-semibold cursor-pointer"
+                        routerLink="/auth/register">Crie sua conta</a></p>
+
+            </div>
+        </form>
+    </div>
+
+</div>
