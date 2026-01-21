@@ -1,20 +1,20 @@
 import { Routes } from '@angular/router';
-import { Login } from './pages/auth/login/login';
-import { Register } from './pages/auth/register/register';
-import { Atividades } from './pages/home/atividades/atividades';
-import { authGuard } from './pages/auth/auth-guard';
+import { Login } from './auth/pages/login/login';
+import { Register } from './auth/pages/register/register';
+import { Atividades } from './home/pages/activities/activities';
+import { AuthGuard } from './auth/guard/auth.guard';
+import { RegisterBaby } from './auth/pages/register-baby/register-baby';
+import { BabyGuard } from './auth/guard/baby.guard';
+import { NoBabyGuard } from './auth/guard/no-baby.guard';
 
 export const routes: Routes = [
-  // rota padrão
   { path: '', redirectTo: 'atividades', pathMatch: 'full' },
 
-  // rotas de auth
   { path: 'auth/login', component: Login },
   { path: 'auth/register', component: Register },
 
-  // rotas do app
-  { path: 'atividades', component: Atividades, canActivate: [authGuard] },
+  {path: 'cadastro-bebe', component: RegisterBaby, canActivate: [AuthGuard, NoBabyGuard]},
+  { path: 'atividades', component: Atividades, canActivate: [AuthGuard, BabyGuard] },
 
-  // coringa
   { path: '**', redirectTo: 'auth/login' },
 ];

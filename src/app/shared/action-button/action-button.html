@@ -1,0 +1,9 @@
+<div class=" flex justify-center h-20" [ngClass]="bgClass">
+  <button
+    class="flex flex-col items-center justify-center h-full w-full cursor-pointer active:scale-85 transition-transform"
+    (click)="clicked.emit()"
+  >
+  <lucide-angular [img]="icon"></lucide-angular>
+    <p class="text-white">{{ label }}</p>
+  </button>
+</div>
