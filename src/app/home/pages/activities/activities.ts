@@ -5,6 +5,8 @@ import { ModalAmamentacao } from "../../components/modal-amamentacao/modal-amame
 import { ModalFralda } from "../../components/modal-fralda/modal-fralda";
 import { ModalBanho } from "../../components/modal-banho/modal-banho";
 import { Baby, Bath, Droplets, LucideAngularModule, Moon, Sun } from 'lucide-angular';
+import type { RotinaRequest } from '../../models/rotina/rotina-request';
+import  { RoutineService } from '../../services/routine.service';
 
 @Component({
   selector: 'app-atividades',
@@ -18,6 +20,7 @@ export class Atividades {
   readonly MoonIcon = Moon;
   readonly SunIcon = Sun;
 
+constructor(private routineService: RoutineService) {}
 
   modalAmamentacaoAberto = false;
   modalFraldaAberto = false;
@@ -34,5 +37,16 @@ export class Atividades {
     if (tipo === 'amamentacao') this.modalAmamentacaoAberto = false;
     if (tipo === 'fralda') this.modalFraldaAberto = false;
     if (tipo === 'banho') this.modalBanhoAberto = false;
+  }
+
+  saveRoutine(dados: RotinaRequest) {
+    this.routineService.createRoutine(dados).subscribe({
+      next: (res) => {
+        console.log('Rotina salva com sucesso:', res);
+      },
+      error: (err) => {
+        console.error('Erro ao salvar rotina:', err);
+      }
+    })
   }
 }

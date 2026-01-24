@@ -58,6 +58,10 @@ export class BabyService {
     return babyData ? JSON.parse(babyData) as BabyResponse : null;
   }
 
+  getBabyId(): number | null {
+    return this.getCachedBaby()?.id ?? null
+  }
+  
   clearBabyCache(): void {
     localStorage.removeItem(this.BABY_STORAGE_KEY);
   }

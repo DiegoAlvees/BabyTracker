@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { required } from '@angular/forms/signals';
 import { LucideAngularModule, Timer } from 'lucide-angular';
+import type { RotinaRequest } from '../../models/rotina/rotina-request';
 
 @Component({
   selector: 'app-modal-amamentacao',
@@ -13,7 +13,7 @@ export class ModalAmamentacao {
   readonly timerIcon = Timer;
 
   @Output() close = new EventEmitter<void>();
-  @Output() confirm = new EventEmitter<void>();
+  @Output() confirm = new EventEmitter<RotinaRequest>();
 
   protected form!: FormGroup;
 
@@ -24,9 +24,26 @@ export class ModalAmamentacao {
     })
   }
 
-  mamiloSelecionado: 'esquerdo' | 'direito' | 'ambos' | null = null;
-
   selecionarMamilo(mamilo: 'esquerdo' | 'direito' | 'ambos') {
-    this.mamiloSelecionado = mamilo;
+    this.form.patchValue({ mamilo: mamilo });
+  }
+
+  get mamiloSelecionado() {
+    return this.form.get('mamilo')?.value;
+  }
+
+  confirmar() {
+    if (this.form.valid) {
+      const dados: RotinaRequest = {
+        tipo: 'amamentacao',
+        timeStamp: new Date().toISOString(),
+        detalhes: {
+          lado: this.form.value.mamilo,
+          duracao: this.form.value.duracao,
+        }
+      }
+      this.confirm.emit(dados);
+      this.close.emit();
+    }
   }
 }

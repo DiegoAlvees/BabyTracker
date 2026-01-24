@@ -35,7 +35,10 @@
       </div>
     </section>
     @if(modalAmamentacaoAberto) {
-            <app-modal-amamentacao (close)="closeModal('amamentacao')"></app-modal-amamentacao>
+            <app-modal-amamentacao 
+            (close)="closeModal('amamentacao')"
+            (confirm)="saveRoutine($event)"
+            ></app-modal-amamentacao>
         }
 
         @if(modalFraldaAberto) {
