@@ -1,32 +1,31 @@
-<!-- Overlay (fundo fosco) -->
-<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
-  
-  <!-- Caixa do modal -->
+<div class="fixed inset-0 bg-black/50 flex px-3 items-center justify-center z-40">
   <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 z-50">
-    
-    <!-- Título opcional -->
-    <h2 class="text-xl font-bold text-blue-950 mb-4">
-      <ng-content select="modal-title"></ng-content>
-    </h2>
-    
-    <!-- Conteúdo do modal -->
-    <div class="mb-6">
-      <ng-content></ng-content>
-    </div>
-    
-    <!-- Botões -->
-    <div class="flex justify-end gap-4">
-      <button type="button" (click)="close.emit()"
-        class="bg-gray-100 text-blue-950 font-semibold rounded-md px-6 py-2 hover:bg-gray-200 transition"
-      >
-        Cancelar
-      </button>
-      <button
-        class="bg-gradient-to-r from-blue-400 to-blue-500 text-white font-bold rounded-md px-6 py-2 hover:from-blue-500 hover:to-blue-600 transition"
-      >
-        Confirmar
-      </button>
-    </div>
-    
+    <h2 class="text-xl font-bold text-blue-950 mb-4">Registrar troca de fralda</h2>
+    <form [formGroup]="form" (ngSubmit)="confirmar()" class="flex flex-col gap-3">
+
+      <div class="flex gap-3">
+        <button type="button" (click)="selecionarTrocaFralda('xixi')"
+          [class]="trocaFraldaSelecionada === 'xixi' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-blue-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-gray-700 hover:bg-gray-300'">Xixi</button>
+        <button type="button" (click)="selecionarTrocaFralda('coco')"
+          [class]="trocaFraldaSelecionada === 'coco' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-blue-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-gray-700 hover:bg-gray-300'">Coco</button>
+        <button type="button" (click)="selecionarTrocaFralda('ambos')"
+          [class]="trocaFraldaSelecionada === 'ambos' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-blue-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-gray-700 hover:bg-gray-300'">Ambos</button>
+      </div>
+      <div class="flex justify-center gap-4 py-3">
+        <button type="button" (click)="close.emit()" class="btn-modal-close">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-modal-confirm">
+          Confirmar
+        </button>
+      </div>
+    </form>
+
+    @if(form.get('trocaFralda')?.invalid && form.touched) {
+    <p class="text-red-600 text-sm">
+      <span class="font-bold">*</span>Informe o tipo de troca.
+    </p>
+    }
+
   </div>
 </div>

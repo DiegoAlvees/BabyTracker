@@ -31,14 +31,14 @@ export class RoutineService {
     return this.http.delete<void>(`${API_URL}/babies/${babyId}/rotinas/${rotinaId}`);
   }
 
-  getRoutines(): Observable<RotinaRequest[]> {
+  getRoutines(): Observable<RotinaResponse[]> {
     const babyId = this.babyService.getBabyId();
 
     if (!babyId) {
       throw new Error('Baby ID não encontrado');
     }
 
-    return this.http.get<RotinaRequest[]>(`${API_URL}/babies/${babyId}/rotinas`);
+    return this.http.get<RotinaResponse[]>(`${API_URL}/babies/${babyId}/rotinas`);
 
   }
 }

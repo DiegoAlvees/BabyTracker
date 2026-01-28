@@ -1,18 +1,10 @@
-<!-- Overlay (fundo fosco) -->
 <div class="fixed inset-0 bg-black/50 flex px-3 items-center justify-center z-40">
-
-    <!-- Caixa do modal -->
     <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 z-50">
-
-        <!-- Título opcional -->
         <h2 class="text-xl font-bold text-blue-950 mb-4">Registrar Amamentação</h2>
-
-        <!-- Conteúdo do modal -->
         <form [formGroup]="form" (ngSubmit)="confirmar()" class="flex flex-col gap-3">
             <div class="relative">
                 <input formControlName="duracao" type="text" placeholder="Duração (minutos)" class="input-primary" />
                 <div class="input-icon">
-
                     <lucide-icon [img]="timerIcon" class="w-6 h-6 text-white"></lucide-icon>
                 </div>
             </div>

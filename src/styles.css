@@ -6,15 +6,15 @@ html {
 }
 
 .bg-primary {
-  @apply bg-gradient-to-br from-blue-400 via-blue-500 to-purple-600;
+  @apply bg-gradient-to-br from-emerald-400 to-emerald-500;
 }
 
 .btn-primary {
-  @apply bg-gradient-to-r from-blue-400 to-blue-500 text-white font-bold py-3 rounded-xl duration-300 flex items-center justify-center shadow-lg hover:shadow-xl active:scale-105;
+  @apply bg-gradient-to-r from-emerald-500 to-emerald-400 text-white font-bold py-3 rounded-xl duration-300 flex items-center justify-center shadow-lg hover:shadow-xl active:scale-105;
 }
 
 .btn-secundary {
-  @apply bg-gradient-to-r from-blue-500 to-blue-400 text-white font-bold py-3 rounded-xl duration-300 flex items-center justify-center shadow-lg hover:shadow-xl active:scale-105;
+  @apply bg-gradient-to-r from-emerald-400 to-emerald-500 text-white font-bold py-3 rounded-xl duration-300 flex items-center justify-center shadow-lg hover:shadow-xl active:scale-105;
 }
 
 .btn-invalid {
@@ -22,15 +22,15 @@ html {
 }
 
 .input-primary {
-  @apply w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 focus:outline-none transition-colors text-gray-800 placeholder-gray-400;
+  @apply w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-400 focus:outline-none transition-colors text-gray-800 placeholder-gray-400;
 }
 
 .input-error {
-  @apply w-full px-4 py-3 border-2 border-red-400 rounded-xl focus:border-blue-400 focus:outline-none transition-colors text-gray-800 placeholder-gray-400;
+  @apply w-full px-4 py-3 border-2 border-red-400 rounded-xl focus:border-emerald-400 focus:outline-none transition-colors text-gray-800 placeholder-gray-400;
 }
 
 .input-icon {
-  @apply flex items-center justify-center absolute right-0 rounded-r-xl top-1/2 -translate-y-1/2 w-14 h-full bg-gradient-to-r from-blue-400 to-blue-500 text-blue-500;
+  @apply flex items-center justify-center absolute right-0 rounded-r-xl top-1/2 -translate-y-1/2 w-14 h-full bg-gradient-to-r from-emerald-400 to-emerald-500 text-emerald-500;
 }
 
 .input-icon-error {
@@ -38,9 +38,9 @@ html {
 }
 
 .btn-modal-confirm {
-  @apply bg-gradient-to-r from-blue-400 to-blue-500 text-white font-bold rounded-md px-6 py-2 hover:from-blue-500 hover:to-blue-600 transition
+  @apply bg-gradient-to-r from-emerald-400 to-emerald-500 text-white font-bold rounded-md px-6 py-2 hover:from-emerald-500 hover:to-emerald-600 transition
 }
 
 .btn-modal-close {
-  @apply bg-gray-100 text-blue-950 font-semibold rounded-md px-6 py-2 hover:bg-gray-200 transition
+  @apply bg-gray-100 text-emerald-950 font-semibold rounded-md px-6 py-2 hover:bg-gray-200 transition
 }

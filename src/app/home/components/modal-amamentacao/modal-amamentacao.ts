@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule, Timer } from 'lucide-angular';
 import type { RotinaRequest } from '../../models/rotina/rotina-request';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-modal-amamentacao',
@@ -17,7 +18,7 @@ export class ModalAmamentacao {
 
   protected form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private toast: ToastService) {
     this.form = this.fb.group({
       duracao: ['',[Validators.required, Validators.pattern("^[0-9]+$")]],
       mamilo: ['',[Validators.required]],
@@ -43,7 +44,10 @@ export class ModalAmamentacao {
         }
       }
       this.confirm.emit(dados);
+      this.toast.success('Amamentação registrada!');
       this.close.emit();
+    } else {
+      this.form.markAllAsTouched()
     }
   }
 }
