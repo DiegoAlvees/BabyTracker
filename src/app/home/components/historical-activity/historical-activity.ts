@@ -4,6 +4,7 @@ import { RoutineService } from '../../services/routine.service';
 import type { RotinaRequest } from '../../models/rotina/rotina-request';
 import type { RotinaResponse } from '../../models/rotina/rotina-response';
 import { CommonModule } from '@angular/common';
+import { map, type Observable } from 'rxjs';
 
 @Component({
   selector: 'app-historical-activity',
@@ -18,31 +19,34 @@ export class HistoricalActivity {
   readonly BathIcon = Bath;
   readonly MoonIcon = Moon;
 
-  @Input() routines: RotinaResponse[] = [];
+  routines$!: Observable<RotinaResponse[]>
   @Input() mode: 'daily' | 'full' = 'daily';
 
   constructor(private routineService: RoutineService) {}
 
   ngOnInit(): void {
+    this.routineService.getRoutines().subscribe();
     this.carryRoutines();
   }
 
   carryRoutines() {
-    this.routineService.getRoutines().subscribe({
-      next: (dados) => {
-        const sorted = dados.sort((a, b) => new Date(b.timeStamp).getTime() - new Date(a.timeStamp).getTime());
-      
-        if (this.mode === 'daily') {
-          const today = new Date().toISOString().split('T')[0];
-          this.routines = sorted.filter(routine => routine.timeStamp.startsWith(today));
-        } else {
-          this.routines = sorted
-        }
-      },
-      error: (err) => {
-        console.error('Erro ao carregar rotinas:', err);
-      }
-    })
+    this.routines$ = this.routineService.getRoutineState().pipe(
+  map((dados) => {
+    const sorted = [...dados].sort(
+      (a, b) => new Date(b.timeStamp).getTime() - new Date(a.timeStamp).getTime()
+    );
+
+    if (this.mode === 'daily') {
+      const today = new Date().toISOString().split('T')[0];
+      return sorted.filter(routine =>
+        routine.timeStamp.startsWith(today)
+      );
+    }
+
+    return sorted;
+  })
+);
+
   }
 
   getIconForType(tipo: string) {
@@ -80,17 +84,21 @@ export class HistoricalActivity {
 }
 
 
-  getRoutinesByDate() {
-    const grouped = new Map<string, RotinaResponse[]>();
+  getRoutinesByDate(): Observable<[string, RotinaResponse[]][]> {
+    return this.routines$.pipe(
+      map(routines => {
+        const grouped = new Map<string, RotinaResponse[]>();
 
-    this.routines.forEach(routine => {
-      const date = routine.timeStamp.split('T')[0];
-      if (!grouped.has(date)) {
-        grouped.set(date, []);
-      }
-      grouped.get(date)?.push(routine);
-    });
+        routines.forEach(routine => {
+          const date = routine.timeStamp.split('T')[0];
+          if (!grouped.has(date)) {
+            grouped.set(date, []);
+          }
+          grouped.get(date)?.push(routine);
+        });
 
-    return Array.from(grouped.entries());
+        return Array.from(grouped.entries());
+      })
+    );
   }
 }

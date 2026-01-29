@@ -4,7 +4,7 @@
         <h1 class="text-[22px] text-emerald-950">Atividades recentes</h1>
     </div>
 
-    @if(routines.length === 0) {
+    @if((routines$ | async)?.length === 0) {
     <div class="flex flex-col justify-center items-center h-35 w-full  text-zinc-400 opacity-40">
         <lucide-icon class="w-10 h-10" [img]="ClockIcon"></lucide-icon>
         <p>Nenhuma atividade hoje</p>
@@ -14,7 +14,7 @@
 
     <div class='min-h-45 overflow-y-auto mb-1'>
         <ul class="mt-4 space-y-2">
-            @for(routine of routines; track routine.id) {
+            @for(routine of (routines$ | async); track routine.id) {
             <li class="text-emerald-900 text-sm">
                 <div class='relative flex justify-between items-end border-emerald-100 border rounded-xl px-4 py-1'>
                     <div class='flex gap-3 items-center'>
@@ -58,7 +58,7 @@
     <!-- modal para pagina historico -->
     @if (mode === 'full') {
     <div class="min-h-45 overflow-y-auto mb-1">
-        @for (group of getRoutinesByDate(); track group[0]) {
+        @for (group of (getRoutinesByDate() | async); track group[0]) {
         <!-- Cabeçalho do dia -->
         <h2 class="mt-6 mb-2 text-sm font-semibold text-emerald-900">
             {{ group[0] | date:'dd MMMM yyyy' }}

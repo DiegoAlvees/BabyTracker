@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import type { RotinaRequest } from '../models/rotina/rotina-request';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import type { RotinaResponse } from '../models/rotina/rotina-response';
 import { API_URL } from '../../config/api.config';
 import { BabyService } from '../../auth/services/baby.service';
@@ -10,6 +10,12 @@ import { BabyService } from '../../auth/services/baby.service';
   providedIn: 'root',
 })
 export class RoutineService {
+private routine$ = new BehaviorSubject<RotinaResponse[]>([]);
+
+getRoutineState(){
+  return this.routine$.asObservable()
+}
+
   constructor(
     private http: HttpClient,
     private babyService: BabyService,
@@ -20,7 +26,11 @@ export class RoutineService {
     if (!babyId) {
       throw new Error('Baby ID não encontrado');
     }
-    return this.http.post<RotinaResponse>(`${API_URL}/babies/${babyId}/rotinas`, rotinaData);
+    return this.http.post<RotinaResponse>(`${API_URL}/babies/${babyId}/rotinas`, rotinaData)
+    .pipe(tap((newRoutine) => {
+      const current = this.routine$.value;
+      this.routine$.next([...current, newRoutine])
+    }))
   }
 
   deleteRoutine(rotinaId: number): Observable<void> {
@@ -38,7 +48,8 @@ export class RoutineService {
       throw new Error('Baby ID não encontrado');
     }
 
-    return this.http.get<RotinaResponse[]>(`${API_URL}/babies/${babyId}/rotinas`);
+    return this.http.get<RotinaResponse[]>(`${API_URL}/babies/${babyId}/rotinas`)
+    .pipe(tap((routines) => this.routine$.next(routines)))
 
   }
 }
