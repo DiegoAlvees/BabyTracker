@@ -1,45 +1,52 @@
-<div class="w-full min-h-screen bg-primary flex justify-center items-center">
-  <div class="bg-emerald-50 w-full max-w-xl min-h-screen rounded-md flex flex-col p-6 pt-10">
-    <app-header></app-header>
+<section class="px-3 py-3 mt-10 bg-white rounded-lg shadow-lg h-auto">
+  <h1 class="text-[22px] text-emerald-950 pt-2">+ Ações Rápidas</h1>
 
-    <section class="px-3 py-3 mt-10 bg-white rounded-lg shadow-lg h-auto">
-      <h1 class="text-[22px] text-emerald-950 pt-2">+ Ações Rápidas</h1>
+  <div class="grid grid-cols-2 gap-3 mt-4">
+    <app-action-button
+      [icon]="DropletsIcon"
+      label="Amamentação"
+      bgClass="btn-primary"
+      (clicked)="openModal('amamentacao')">
+    </app-action-button>
 
-      <div class="grid grid-cols-2 gap-3 mt-4">
-        <!-- Amamentação -->
-        <app-action-button [icon]="DropletsIcon" label="Amamentação" bgClass="btn-primary"
-          (clicked)="openModal('amamentacao')"></app-action-button>
+    <app-action-button
+      [icon]="BabyIcon"
+      label="Fralda"
+      bgClass="btn-secundary"
+      (clicked)="openModal('fralda')">
+    </app-action-button>
 
-        <!-- Fralda -->
-        <app-action-button [icon]="BabyIcon" label="Fralda" bgClass="btn-secundary"
-          (clicked)="openModal('fralda')"></app-action-button>
+    <app-action-button
+      [icon]="BathIcon"
+      label="Banho"
+      bgClass="btn-secundary"
+      (clicked)="openModal('banho')">
+    </app-action-button>
 
-        <!-- Banho -->
-        <app-action-button [icon]="BathIcon" label="Banho" bgClass="btn-secundary"
-          (clicked)="openModal('banho')"></app-action-button>
-
-        <!-- Sono -->
-        <app-action-button [icon]="MoonIcon" label="Soneca" bgClass="btn-primary"
-          (clicked)="openModal('soneca')"></app-action-button>
-      </div>
-    </section>
-    @if(modalAmamentacaoAberto) {
-    <app-modal-amamentacao (close)="closeModal('amamentacao')" (confirm)="saveRoutine($event)"></app-modal-amamentacao>
-    }
-
-    @if(modalFraldaAberto) {
-    <app-modal-fralda (close)="closeModal('fralda')" (confirm)="saveRoutine($event)"></app-modal-fralda>
-    }
-
-    @if(modalBanhoAberto) {
-    <app-modal-banho (close)="closeModal('banho')" (confirm)="saveRoutine($event)"></app-modal-banho>
-    }
-
-    @if(modalSonecaAberto) {
-    <app-modal-soneca (close)="closeModal('soneca')" (confirm)="saveRoutine($event)"></app-modal-soneca>
-    }
-
-    <!-- Componente de historico -->
-    <app-historical-activity></app-historical-activity>
+    <app-action-button
+      [icon]="MoonIcon"
+      label="Soneca"
+      bgClass="btn-primary"
+      (clicked)="openModal('soneca')">
+    </app-action-button>
   </div>
-</div>
+</section>
+
+<!-- modais -->
+@if(modalAmamentacaoAberto) {
+  <app-modal-amamentacao (close)="closeModal('amamentacao')" (confirm)="saveRoutine($event)" />
+}
+
+@if(modalFraldaAberto) {
+  <app-modal-fralda (close)="closeModal('fralda')" (confirm)="saveRoutine($event)" />
+}
+
+@if(modalBanhoAberto) {
+  <app-modal-banho (close)="closeModal('banho')" (confirm)="saveRoutine($event)" />
+}
+
+@if(modalSonecaAberto) {
+  <app-modal-soneca (close)="closeModal('soneca')" (confirm)="saveRoutine($event)" />
+}
+
+<app-historical-activity mode="daily"></app-historical-activity>

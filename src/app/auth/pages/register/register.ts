@@ -7,7 +7,7 @@ import {
   FormsModule,
 } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
-import {LockKeyhole, LucideAngularModule, Mail } from 'lucide-angular';
+import {LockKeyhole, LucideAngularModule, Mail, User } from 'lucide-angular';
 import { passwordMatchValidator } from '../../../validators/validations-errors';
 import { AuthService } from '../../services/auth.service';
 import type { RegisterRequest } from '../../models/register/register-request';
@@ -21,6 +21,7 @@ import { CommonModule } from '@angular/common';
 export class Register {
   readonly MailIcon = Mail;
   readonly KeyIcon = LockKeyhole;
+  readonly userIcon = User
 
   protected form!: FormGroup;
   mensagemErro: string = '';

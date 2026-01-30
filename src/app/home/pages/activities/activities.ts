@@ -12,7 +12,7 @@ import { HistoricalActivity } from "../../components/historical-activity/histori
 
 @Component({
   selector: 'app-atividades',
-  imports: [Header, ActionButton, ModalAmamentacao, ModalFralda, ModalBanho, ModalSoneca, LucideAngularModule, HistoricalActivity],
+  imports: [ActionButton, ModalAmamentacao, ModalFralda, ModalBanho, ModalSoneca, LucideAngularModule, HistoricalActivity],
   templateUrl: './activities.html',
 })
 export class Atividades {

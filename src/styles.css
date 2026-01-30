@@ -6,7 +6,7 @@ html {
 }
 
 .bg-primary {
-  @apply bg-gradient-to-br from-emerald-400 to-emerald-500;
+  @apply bg-emerald-400;
 }
 
 .btn-primary {

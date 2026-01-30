@@ -22,6 +22,13 @@ export class HistoricalActivity {
   routines$!: Observable<RotinaResponse[]>
   @Input() mode: 'daily' | 'full' = 'daily';
 
+  typeLabelMap: Record<string, string> = {
+    amamentacao: 'Amamentação',
+    banho: 'Banho',
+    soneca: 'Soneca',
+    fralda: 'Troca de Fralda',
+  };
+
   constructor(private routineService: RoutineService) {}
 
   ngOnInit(): void {
@@ -30,24 +37,28 @@ export class HistoricalActivity {
   }
 
   carryRoutines() {
-    this.routines$ = this.routineService.getRoutineState().pipe(
-  map((dados) => {
-    const sorted = [...dados].sort(
-      (a, b) => new Date(b.timeStamp).getTime() - new Date(a.timeStamp).getTime()
-    );
+  this.routines$ = this.routineService.getRoutineState().pipe(
+    map((dados) => {
+      const withLocalTime = dados.map(routine => ({
+        ...routine,
+        timeStamp: new Date(routine.timeStamp + 'Z').toISOString()
+      }));
 
-    if (this.mode === 'daily') {
-      const today = new Date().toISOString().split('T')[0];
-      return sorted.filter(routine =>
-        routine.timeStamp.startsWith(today)
+      const sorted = [...withLocalTime].sort(
+        (a, b) => new Date(b.timeStamp).getTime() - new Date(a.timeStamp).getTime()
       );
-    }
 
-    return sorted;
-  })
-);
+      if (this.mode === 'daily') {
+        const today = new Date().toISOString().split('T')[0];
+        return sorted.filter(routine =>
+          routine.timeStamp.startsWith(today)
+        );
+      }
 
-  }
+      return sorted;
+    })
+  );
+}
 
   getIconForType(tipo: string) {
     switch (tipo) {
@@ -70,7 +81,7 @@ export class HistoricalActivity {
       return `Seio: ${detalhes.lado}, ${detalhes.duracao} minutos`;
 
     case 'fralda':
-      return `Troca: ${detalhes.tipoTroca}`;
+      return `Tipo de troca: ${detalhes.tipoTroca}`;
 
     case 'soneca':
       return `Dormiu por ${detalhes.tempoDormido}`;
@@ -100,5 +111,11 @@ export class HistoricalActivity {
         return Array.from(grouped.entries());
       })
     );
+  }
+
+  
+
+  getTypeLabel(type: string): string {
+    return this.typeLabelMap[type] || type
   }
 }
