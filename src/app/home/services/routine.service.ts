@@ -10,11 +10,11 @@ import { BabyService } from '../../auth/services/baby.service';
   providedIn: 'root',
 })
 export class RoutineService {
-private routine$ = new BehaviorSubject<RotinaResponse[]>([]);
+  private routine$ = new BehaviorSubject<RotinaResponse[]>([]);
 
-getRoutineState(){
-  return this.routine$.asObservable()
-}
+  getRoutineState() {
+    return this.routine$.asObservable();
+  }
 
   constructor(
     private http: HttpClient,
@@ -26,11 +26,12 @@ getRoutineState(){
     if (!babyId) {
       throw new Error('Baby ID não encontrado');
     }
-    return this.http.post<RotinaResponse>(`${API_URL}/babies/${babyId}/rotinas`, rotinaData)
-    .pipe(tap((newRoutine) => {
-      const current = this.routine$.value;
-      this.routine$.next([...current, newRoutine])
-    }))
+    return this.http.post<RotinaResponse>(`${API_URL}/babies/${babyId}/rotinas`, rotinaData).pipe(
+      tap((newRoutine) => {
+        const current = this.routine$.value;
+        this.routine$.next([...current, newRoutine]);
+      }),
+    );
   }
 
   deleteRoutine(rotinaId: number): Observable<void> {
@@ -38,7 +39,13 @@ getRoutineState(){
     if (!babyId) {
       throw new Error('Baby ID não encontrado');
     }
-    return this.http.delete<void>(`${API_URL}/babies/${babyId}/rotinas/${rotinaId}`);
+    return this.http.delete<void>(`${API_URL}/babies/${babyId}/rotinas/${rotinaId}`).pipe(
+      tap(() => {
+        const current = this.routine$.value;
+        const updated = current.filter((r) => r.id !== rotinaId);
+        this.routine$.next(updated);
+      }),
+    );
   }
 
   getRoutines(): Observable<RotinaResponse[]> {
@@ -48,8 +55,8 @@ getRoutineState(){
       throw new Error('Baby ID não encontrado');
     }
 
-    return this.http.get<RotinaResponse[]>(`${API_URL}/babies/${babyId}/rotinas`)
-    .pipe(tap((routines) => this.routine$.next(routines)))
-
+    return this.http
+      .get<RotinaResponse[]>(`${API_URL}/babies/${babyId}/rotinas`)
+      .pipe(tap((routines) => this.routine$.next(routines)));
   }
 }

@@ -15,7 +15,7 @@ import { HistoricalActivity } from "../../components/historical-activity/histori
   imports: [ActionButton, ModalAmamentacao, ModalFralda, ModalBanho, ModalSoneca, LucideAngularModule, HistoricalActivity],
   templateUrl: './activities.html',
 })
-export class Atividades {
+export class Activities {
   readonly BabyIcon = Baby;
   readonly DropletsIcon = Droplets;
   readonly BathIcon = Bath;

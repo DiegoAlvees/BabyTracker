@@ -1,6 +1,6 @@
 <div class="fixed inset-0 bg-black/50 flex px-3 items-center justify-center z-40">
     <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 z-50">
-        <h2 class="text-xl font-bold text-blue-950 mb-4">Registrar Amamentação</h2>
+        <h2 class="text-xl font-bold text-emerald-950 mb-4">Registrar Amamentação</h2>
         <form [formGroup]="form" (ngSubmit)="confirmar()" class="flex flex-col gap-3">
             <div class="relative">
                 <input formControlName="duracao" type="text" placeholder="Duração (minutos)" class="input-primary" />
@@ -10,11 +10,11 @@
             </div>
             <div class="flex gap-3">
                 <button type="button" (click)="selecionarMamilo('esquerdo')"
-                    [class]="mamiloSelecionado === 'esquerdo' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-blue-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-gray-700 hover:bg-gray-300'">Esquerdo</button>
+                    [class]="mamiloSelecionado === 'esquerdo' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-emerald-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-emerald-900 hover:bg-gray-300'">Esquerdo</button>
                 <button type="button" (click)="selecionarMamilo('direito')"
-                    [class]="mamiloSelecionado === 'direito' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-blue-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-gray-700 hover:bg-gray-300'">Direito</button>
+                    [class]="mamiloSelecionado === 'direito' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-emerald-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-emerald-900 hover:bg-gray-300'">Direito</button>
                 <button type="button" (click)="selecionarMamilo('ambos')"
-                    [class]="mamiloSelecionado === 'ambos' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-blue-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-gray-700 hover:bg-gray-300'">Ambos</button>
+                    [class]="mamiloSelecionado === 'ambos' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-emerald-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-emerald-900 hover:bg-gray-300'">Ambos</button>
             </div>
             <div class="flex justify-center gap-4 py-3">
                 <button type="button" (click)="close.emit()" class="btn-modal-close">

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { History, House, LucideAngularModule, Syringe, User } from 'lucide-angular';
+import { RouterLink, RouterLinkActive } from "@angular/router";
 
 @Component({
   selector: 'app-footer',
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, RouterLink, RouterLinkActive],
   templateUrl: './footer.html',
 })
 export class Footer {
@@ -11,6 +12,5 @@ export class Footer {
   readonly syringeIcon = Syringe;
   readonly historyIcon = History;
   readonly userIcon = User
-
 
 }

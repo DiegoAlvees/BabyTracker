@@ -1,7 +1,7 @@
 <div class="px-3 py-3 mt-10 bg-white rounded-lg shadow-lg h-auto">
     <div class="flex items-center gap-2">
         <lucide-icon [img]="ClockFadingIcon" class="text-emerald-900"></lucide-icon>
-        <h1 class="text-[22px] text-emerald-950">Atividades recentes</h1>
+        <h1 class="text-[22px] text-emerald-950"> {{mode === "daily" ? "Atividades recentes" : "Histórico de atividades"}} </h1>
     </div>
 
     @if((routines$ | async)?.length === 0) {
@@ -33,13 +33,13 @@
 
                             <!-- detalhes do tipo -->
                             <p class='text-[12px] text-gray-500'>
-                               {{getDetailForType(routine.tipo, routine.detalhes)}}
+                                {{getDetailForType(routine.tipo, routine.detalhes)}}
                             </p>
                         </div>
                     </div>
 
                     <div class='text-right'>
-                        
+
                         <p class='text-[11px] text-gray-400 mt-1'>
                             {{routine.timeStamp | date:'dd/MM/yyyy'}}
                         </p>
@@ -59,7 +59,7 @@
         @for (group of (getRoutinesByDate() | async); track group[0]) {
         <!-- Cabeçalho do dia -->
         <h2 class="mt-6 mb-2 text-sm font-semibold text-emerald-900">
-            {{ group[0] | date:'dd MMMM yyyy' }}
+            {{ group[0] | date:'dd MMMM yyyy'}}
         </h2>
 
         <ul class="space-y-2">
@@ -79,14 +79,18 @@
                                 </span>
                             </div>
 
-                            <p class="text-[13px] text-gray-500">
+                            <p class="text-[12px] text-gray-500">
+                                {{getDetailForType(routine.tipo, routine.detalhes)}}
                             </p>
                         </div>
                     </div>
 
-                    <p class="text-[11px] text-gray-400 mt-1">
-                        {{ routine.timeStamp | date:'dd/MM/yyyy' }}
-                    </p>
+                    <div class="flex flex-col items-end">
+                        <button class="cursor-pointer" (click)="deleteRoutine(routine.id, routine.tipo)"><lucide-icon class="text-red-400 w-4 h-4" [img]="clearIcon"></lucide-icon></button>
+                        <p class="text-[11px] text-gray-400 mt-1">
+                            {{ routine.timeStamp | date:'dd/MM/yyyy' }}
+                        </p>
+                    </div>
                 </div>
             </li>
             }

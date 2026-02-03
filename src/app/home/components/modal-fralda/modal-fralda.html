@@ -1,15 +1,15 @@
 <div class="fixed inset-0 bg-black/50 flex px-3 items-center justify-center z-40">
   <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 z-50">
-    <h2 class="text-xl font-bold text-blue-950 mb-4">Registrar troca de fralda</h2>
+    <h2 class="text-xl font-bold text-emerald-950 mb-4">Registrar troca de fralda</h2>
     <form [formGroup]="form" (ngSubmit)="confirmar()" class="flex flex-col gap-3">
 
       <div class="flex gap-3">
         <button type="button" (click)="selecionarTrocaFralda('xixi')"
-          [class]="trocaFraldaSelecionada === 'xixi' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-blue-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-gray-700 hover:bg-gray-300'">Xixi</button>
+          [class]="trocaFraldaSelecionada === 'xixi' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-emerald-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-emerald-900 hover:bg-gray-300'">Xixi</button>
         <button type="button" (click)="selecionarTrocaFralda('coco')"
-          [class]="trocaFraldaSelecionada === 'coco' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-blue-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-gray-700 hover:bg-gray-300'">Coco</button>
+          [class]="trocaFraldaSelecionada === 'coco' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-emerald-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-emerald-900 hover:bg-gray-300'">Coco</button>
         <button type="button" (click)="selecionarTrocaFralda('ambos')"
-          [class]="trocaFraldaSelecionada === 'ambos' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-blue-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-gray-700 hover:bg-gray-300'">Ambos</button>
+          [class]="trocaFraldaSelecionada === 'ambos' ? 'flex-1 py-2 rounded-lg font-semibold transition-all bg-emerald-600 text-white' : 'flex-1 py-2 rounded-lg font-semibold transition-all bg-gray-200 text-emerald-900 hover:bg-gray-300'">Ambos</button>
       </div>
       <div class="flex justify-center gap-4 py-3">
         <button type="button" (click)="close.emit()" class="btn-modal-close">

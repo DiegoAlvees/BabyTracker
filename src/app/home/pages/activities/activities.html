@@ -2,51 +2,36 @@
   <h1 class="text-[22px] text-emerald-950 pt-2">+ Ações Rápidas</h1>
 
   <div class="grid grid-cols-2 gap-3 mt-4">
-    <app-action-button
-      [icon]="DropletsIcon"
-      label="Amamentação"
-      bgClass="btn-primary"
+    <app-action-button [icon]="DropletsIcon" label="Amamentação" bgClass="btn-primary"
       (clicked)="openModal('amamentacao')">
     </app-action-button>
 
-    <app-action-button
-      [icon]="BabyIcon"
-      label="Fralda"
-      bgClass="btn-secundary"
-      (clicked)="openModal('fralda')">
+    <app-action-button [icon]="BabyIcon" label="Fralda" bgClass="btn-secundary" (clicked)="openModal('fralda')">
     </app-action-button>
 
-    <app-action-button
-      [icon]="BathIcon"
-      label="Banho"
-      bgClass="btn-secundary"
-      (clicked)="openModal('banho')">
+    <app-action-button [icon]="BathIcon" label="Banho" bgClass="btn-secundary" (clicked)="openModal('banho')">
     </app-action-button>
 
-    <app-action-button
-      [icon]="MoonIcon"
-      label="Soneca"
-      bgClass="btn-primary"
-      (clicked)="openModal('soneca')">
+    <app-action-button [icon]="MoonIcon" label="Soneca" bgClass="btn-primary" (clicked)="openModal('soneca')">
     </app-action-button>
   </div>
 </section>
 
 <!-- modais -->
 @if(modalAmamentacaoAberto) {
-  <app-modal-amamentacao (close)="closeModal('amamentacao')" (confirm)="saveRoutine($event)" />
+<app-modal-amamentacao (close)="closeModal('amamentacao')" (confirm)="saveRoutine($event)" />
 }
 
 @if(modalFraldaAberto) {
-  <app-modal-fralda (close)="closeModal('fralda')" (confirm)="saveRoutine($event)" />
+<app-modal-fralda (close)="closeModal('fralda')" (confirm)="saveRoutine($event)" />
 }
 
 @if(modalBanhoAberto) {
-  <app-modal-banho (close)="closeModal('banho')" (confirm)="saveRoutine($event)" />
+<app-modal-banho (close)="closeModal('banho')" (confirm)="saveRoutine($event)" />
 }
 
 @if(modalSonecaAberto) {
-  <app-modal-soneca (close)="closeModal('soneca')" (confirm)="saveRoutine($event)" />
+<app-modal-soneca (close)="closeModal('soneca')" (confirm)="saveRoutine($event)" />
 }
 
 <app-historical-activity mode="daily"></app-historical-activity>

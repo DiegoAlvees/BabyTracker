@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { Baby, Bath, Clock4, ClockFading, Droplets, LucideAngularModule, Moon } from 'lucide-angular';
+import { Baby, Bath, CircleX, Clock4, ClockFading, Droplets, LucideAngularModule, Moon } from 'lucide-angular';
 import { RoutineService } from '../../services/routine.service';
 import type { RotinaRequest } from '../../models/rotina/rotina-request';
 import type { RotinaResponse } from '../../models/rotina/rotina-response';
 import { CommonModule } from '@angular/common';
 import { map, type Observable } from 'rxjs';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-historical-activity',
@@ -18,6 +19,7 @@ export class HistoricalActivity {
   readonly DropletsIcon = Droplets;
   readonly BathIcon = Bath;
   readonly MoonIcon = Moon;
+  readonly clearIcon = CircleX;
 
   routines$!: Observable<RotinaResponse[]>
   @Input() mode: 'daily' | 'full' = 'daily';
@@ -29,7 +31,11 @@ export class HistoricalActivity {
     fralda: 'Troca de Fralda',
   };
 
-  constructor(private routineService: RoutineService) {}
+  getTypeLabel(type: string): string {
+    return this.typeLabelMap[type] || type
+  }
+
+  constructor(private routineService: RoutineService, private toast: ToastService) {}
 
   ngOnInit(): void {
     this.routineService.getRoutines().subscribe();
@@ -113,9 +119,13 @@ export class HistoricalActivity {
     );
   }
 
+  deleteRoutine(rotinaId: number, type: string) {
+    this.routineService.deleteRoutine(rotinaId).subscribe()
+    const label = this.getTypeLabel(type)
+    this.toast.success(`Rotina de ${label} deletada com sucesso!`)
+  }
+
   
 
-  getTypeLabel(type: string): string {
-    return this.typeLabelMap[type] || type
-  }
+  
 }

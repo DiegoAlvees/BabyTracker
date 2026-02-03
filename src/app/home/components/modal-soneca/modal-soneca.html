@@ -1,15 +1,15 @@
 <div class="fixed inset-0 bg-black/50 flex px-3 items-center justify-center z-40">
     <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 z-50">
-        <h2 class="text-xl font-bold text-blue-950 mb-4">Registrar Soneca</h2>
+        <h2 class="text-xl font-bold text-emerald-950 mb-4">Registrar Soneca</h2>
         <form [formGroup]="form" (ngSubmit)="confirmar()" class="flex flex-col gap-1">
-            <label class="text-sm text-blue-950">Horário que dormiu</label>
+            <label class="text-sm text-emerald-950">Horário que dormiu</label>
             <div class="relative">
                 <input formControlName="horaDormiu" type="time" class="input-primary" />
                 <div class="input-icon">
                     <lucide-icon [img]="MoonIcon" class="w-6 h-6 text-white"></lucide-icon>
                 </div>
             </div>
-            <label class="text-sm text-blue-950">Horário que acordou</label>
+            <label class="text-sm text-emerald-950">Horário que acordou</label>
             <div class="relative">
                 <input formControlName="horaAcordou" type="time" class="input-primary" />
                 <div class="input-icon">
@@ -28,7 +28,7 @@
 
         @if(form.get('horaDormiu')?.invalid && form.touched || form.get('horaAcordou')?.invalid && form.touched ) {
         <p class="text-red-600 text-sm">
-            <span class="font-bold">*</span>informe a hora de dormir e a hora que acordou.
+            <span class="font-bold">*</span>informe a hora de dormiu e a hora que acordou.
         </p>
         }
 

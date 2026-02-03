@@ -1,0 +1,10 @@
+<div class="px-3 py-3 mt-6">
+    <button class="btn-primary w-full">Adicionar vacina</button>
+<!-- vacinas agendadas -->
+    <app-vaccine-card
+        [config]="{iconTitulo: calendarIcon, iconMensagem: calendarOffIcon, titulo: 'Vacinas agendadas', mensagem: 'Nenhuma vacina agendada' }"></app-vaccine-card>
+
+        <!-- vacinas tomadas -->
+    <app-vaccine-card
+        [config]="{iconTitulo: checkIcon, iconMensagem: syringeIcon, titulo: 'Vacinas tomadas', mensagem: 'Nenhuma vacina registrada' }"></app-vaccine-card>
+</div>
