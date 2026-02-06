@@ -9,7 +9,7 @@ import { NoBabyGuard } from './auth/guard/no-baby.guard';
 import { AuthLayout } from './home/layout/auth-layout/auth-layout';
 import { Vaccines } from './home/pages/vaccines/vaccines';
 import { Profile } from './home/pages/profile/profile';
-import { History } from './home/pages/history/history';
+import { Historical } from './home/pages/historical/historical';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'atividades', pathMatch: 'full' },
@@ -44,7 +44,7 @@ export const routes: Routes = [
       },
        {
         path: 'historico',
-        component: History,
+        component: Historical,
         canActivate: [BabyGuard]
       }
     ],

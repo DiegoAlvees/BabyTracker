@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Baby, Bath, CircleX, Clock4, ClockFading, Droplets, LucideAngularModule, Moon } from 'lucide-angular';
 import { RoutineService } from '../../services/routine.service';
-import type { RotinaRequest } from '../../models/rotina/rotina-request';
 import type { RotinaResponse } from '../../models/rotina/rotina-response';
 import { CommonModule } from '@angular/common';
 import { map, type Observable } from 'rxjs';
@@ -84,7 +83,7 @@ export class HistoricalActivity {
   getDetailForType(tipo: string, detalhes: any) {
   switch (tipo) {
     case 'amamentacao':
-      return `Seio: ${detalhes.lado}, ${detalhes.duracao} minutos`;
+      return `Seio: ${detalhes.lado}, ${detalhes.duracao} min`;
 
     case 'fralda':
       return `Tipo de troca: ${detalhes.tipoTroca}`;
@@ -120,9 +119,15 @@ export class HistoricalActivity {
   }
 
   deleteRoutine(rotinaId: number, type: string) {
-    this.routineService.deleteRoutine(rotinaId).subscribe()
-    const label = this.getTypeLabel(type)
-    this.toast.success(`Rotina de ${label} deletada com sucesso!`)
+    this.toast.confirmDelete().then((result) => {
+      if(result.isConfirmed) {
+        this.routineService.deleteRoutine(rotinaId).subscribe()
+        const label = this.getTypeLabel(type)
+        this.toast.success(`Rotina de ${label} deletada com sucesso!`)
+
+
+      }
+    })
   }
 
   

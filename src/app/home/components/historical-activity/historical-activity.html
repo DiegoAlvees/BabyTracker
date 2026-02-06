@@ -5,10 +5,19 @@
     </div>
 
     @if((routines$ | async)?.length === 0) {
-    <div class="flex flex-col justify-center items-center h-35 w-full  text-zinc-400 opacity-40">
-        <lucide-icon class="w-10 h-10" [img]="ClockIcon"></lucide-icon>
-        <p>Nenhuma atividade hoje</p>
-    </div>
+        @if(mode === 'daily') {
+            <div class="flex flex-col justify-center items-center h-35 w-full  text-zinc-400 opacity-40">
+                <lucide-icon class="w-10 h-10" [img]="ClockIcon"></lucide-icon>
+                <p>Nenhuma atividade hoje</p>
+            </div>
+        }
+
+        @if(mode === 'full') {
+            <div class="flex flex-col justify-center items-center min-h-[55vh] w-full  text-zinc-400 opacity-40">
+                <lucide-icon class="w-14 h-14" [img]="ClockIcon"></lucide-icon>
+                <p class="text-xl">Nenhuma atividade</p>
+            </div>
+        }
     } @else {
     @if(mode === 'daily') {
 
@@ -18,9 +27,8 @@
             <li class="text-emerald-900 text-sm">
                 <div class='relative flex justify-between items-end border-emerald-100 border rounded-xl px-4 py-1'>
                     <div class='flex gap-3 items-center'>
-                        <!-- icone-->
                         <div class='bg-emerald-100 w-10 h-10 flex items-center justify-center rounded-full'>
-                            <lucide-icon [img]="getIconForType(getTypeLabel(routine.tipo))"></lucide-icon>
+                            <lucide-icon [img]="getIconForType(routine.tipo)"></lucide-icon>
                         </div>
 
                         <div>
@@ -31,7 +39,6 @@
                                 </span>
                             </div>
 
-                            <!-- detalhes do tipo -->
                             <p class='text-[12px] text-gray-500'>
                                 {{getDetailForType(routine.tipo, routine.detalhes)}}
                             </p>
@@ -55,9 +62,8 @@
 
     <!-- modal para pagina historico -->
     @if (mode === 'full') {
-    <div class="min-h-45 overflow-y-auto mb-1">
+    <div class="overflow-y-auto mb-1">
         @for (group of (getRoutinesByDate() | async); track group[0]) {
-        <!-- Cabeçalho do dia -->
         <h2 class="mt-6 mb-2 text-sm font-semibold text-emerald-900">
             {{ group[0] | date:'dd MMMM yyyy'}}
         </h2>
@@ -73,7 +79,7 @@
 
                         <div>
                             <div class="flex gap-2 items-center">
-                                <p class="text-[17px] capitalize">{{ routine.tipo }}</p>
+                                <p class="text-[17px] capitalize">{{ getTypeLabel(routine.tipo) }}</p>
                                 <span class="text-[13px] bg-emerald-100 p-0.5 px-1 rounded-xl">
                                     {{ routine.timeStamp | date:'HH:mm' }}
                                 </span>
@@ -86,7 +92,7 @@
                     </div>
 
                     <div class="flex flex-col items-end">
-                        <button class="cursor-pointer" (click)="deleteRoutine(routine.id, routine.tipo)"><lucide-icon class="text-red-400 w-4 h-4" [img]="clearIcon"></lucide-icon></button>
+                        <button class="cursor-pointer" (click)="deleteRoutine(routine.id, routine.tipo)"><lucide-icon class="text-red-200 w-4 h-4" [img]="clearIcon"></lucide-icon></button>
                         <p class="text-[11px] text-gray-400 mt-1">
                             {{ routine.timeStamp | date:'dd/MM/yyyy' }}
                         </p>

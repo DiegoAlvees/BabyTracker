@@ -4,8 +4,8 @@ import { HistoricalActivity } from '../../components/historical-activity/histori
 @Component({
   selector: 'app-history',
   imports: [HistoricalActivity],
-  templateUrl: './history.html',
+  templateUrl: './historical.html',
 })
-export class History {
+export class Historical {
 
 }

@@ -1,0 +1,61 @@
+<div class="fixed inset-0 bg-black/50 flex px-3 items-center justify-center z-40">
+    <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 z-50">
+        <h1 class="text-xl font-bold text-emerald-950 mb-4">Registrar vacina</h1>
+
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <!-- input vacina -->
+            <div class="relative">
+                <input formControlName="vacina" type="text" placeholder="Nome da vacina" class="input-primary" />
+                <div class="input-icon">
+                    <lucide-icon [img]="syringeIcon" class="w-6 h-6 text-white"></lucide-icon>
+                </div>
+            </div>
+
+            <!-- input data -->
+            <p class="text-sm text-emerald-950 pt-4">Data da vacina:</p>
+            <div class="relative">
+                <input formControlName="data" type="date" placeholder="Nome da vacina" class="input-primary" />
+                <div class="input-icon">
+                    <lucide-icon [img]="calendarIcon" class="w-6 h-6 text-white"></lucide-icon>
+                </div>
+            </div>
+
+            <div class="flex justify-around pt-4">
+                <button (click)="form.patchValue({status: true})"
+                    [class.btn-modal-confirm]="form.get('status')?.value === true"
+                    [class.btn-modal-close]="form.get('status')?.value !== true" type="button">
+                    Já tomou
+                </button>
+                <button type="button" (click)="form.patchValue({status: false})"
+                    [class.btn-modal-confirm]="form.get('status')?.value === false"
+                    [class.btn-modal-close]="form.get('status')?.value !== false">
+                    agendar
+                </button>
+            </div>
+
+            <div class="flex justify-center gap-4 pb-3 pt-8">
+                <button type="button" (click)="close.emit()" class="btn-modal-close">
+                    Cancelar
+                </button>
+                <button type="submit" class="btn-modal-confirm">
+                    Confirmar
+                </button>
+            </div>
+        </form>
+        @if(form.get('vacina')?.invalid && submitted) {
+        <p class="text-red-600 text-sm">
+            <span class="font-bold">*</span>Informe o nome da vacina
+        </p>
+        }
+        @if(form.get('data')?.invalid && submitted) {
+        <p class="text-red-600 text-sm">
+            <span class="font-bold">*</span>Informe a data
+        </p>
+        }
+        @if(form.get('status')?.invalid && submitted) {
+        <p class="text-red-600 text-sm">
+            <span class="font-bold">*</span>Escolha o status da vacina
+        </p>
+        }
+    </div>
+</div>

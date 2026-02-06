@@ -9,8 +9,12 @@ import { API_URL } from '../../config/api.config';
 @Injectable({
   providedIn: 'root',
 })
-export class Vaccine {
-  private vaccine$ = new BehaviorSubject<VaccineResponse[]>([]);
+export class VaccineService {
+  private vaccinesTaken$ = new BehaviorSubject<VaccineResponse[]>([]);
+  private vaccinesFuture$ = new BehaviorSubject<VaccineResponse[]>([])
+
+  public taken$ = this.vaccinesTaken$.asObservable();
+  public future$ = this.vaccinesFuture$.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -25,34 +29,46 @@ export class Vaccine {
 
     return this.http.post<VaccineResponse>(`${API_URL}/vacinas/baby/${BabyId}`, vaccineData).pipe(
       tap((newVaccine) => {
-        const current = this.vaccine$.value;
-        this.vaccine$.next([...current, newVaccine]);
+        if(newVaccine.status) {
+          const current = this.vaccinesTaken$.value;
+          this.vaccinesTaken$.next([...current, newVaccine]);
+        } else {
+          const current = this.vaccinesFuture$.value;
+          this.vaccinesFuture$.next([...current, newVaccine])
+        }
+        
       }),
     );
   }
 
-  deleteVaccine(vaccineId: number): Observable<void> {
+  deleteVaccine(vaccineId: number, status: boolean): Observable<void> {
     return this.http.delete<void>(`${API_URL}/vacinas/${vaccineId}`).pipe(
       tap(() => {
-        const current = this.vaccine$.value;
-        const updated = current.filter((vaccine) => vaccine.id !== vaccineId);
-        this.vaccine$.next(updated);
+        if(status) {
+          const current = this.vaccinesTaken$.value;
+          const updated = current.filter((vaccine) => vaccine.id !== vaccineId);
+          this.vaccinesTaken$.next(updated);
+        } else {
+          const current = this.vaccinesFuture$.value;
+          const updated = current.filter((vaccine) => vaccine.id !== vaccineId);
+          this.vaccinesFuture$.next(updated);
+        }
       }),
     );
   }
 
-  getVaccines(tomadas: boolean): Observable<VaccineResponse[]> {
+  getVaccines(): void {
     const babyId = this.babyService.getBabyId();
     if (!babyId) {
       throw new Error('Baby Id não encontrado');
     }
 
-    const url = tomadas
-      ? `${API_URL}/vacinas/baby/${babyId}/tomadas`
-      : `${API_URL}/vacinas/baby/${babyId}/futuras`;
+    this.http
+      .get<VaccineResponse[]>(`${API_URL}/vacinas/baby/${babyId}/tomadas`)
+      .subscribe((vaccines) => this.vaccinesTaken$.next(vaccines));
 
-    return this.http
-      .get<VaccineResponse[]>(url)
-      .pipe(tap((vaccines) => this.vaccine$.next(vaccines)));
+    this.http
+      .get<VaccineResponse[]>(`${API_URL}/vacinas/baby/${babyId}/futuras`)
+      .subscribe((vaccines) => this.vaccinesFuture$.next(vaccines));
   }
 }

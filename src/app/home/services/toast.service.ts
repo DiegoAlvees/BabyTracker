@@ -18,4 +18,23 @@ export class ToastService {
     });
   }
   
+  confirmDelete(message = 'Essa ação não pode ser desfeita') {
+  return Swal.fire({
+    title: 'Excluir?',
+    text: message,
+    icon: 'warning',
+    width: 330,
+    showCancelButton: true,
+    confirmButtonText: 'Excluir',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#059669',
+    cancelButtonColor: '#d1d5db',
+    iconColor: '#10b981',
+    background: '#ecfdf5',
+    color: '#064e3b',
+    focusCancel: true,
+  });
+}
+
+
 }

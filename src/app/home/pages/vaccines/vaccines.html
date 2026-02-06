@@ -1,10 +1,21 @@
-<div class="px-3 py-3 mt-6">
-    <button class="btn-primary w-full">Adicionar vacina</button>
+<div class=" py-3 mt-6">
+    <button (click)="openModal()"  class="btn-primary w-full">Adicionar vacina</button>
 <!-- vacinas agendadas -->
     <app-vaccine-card
-        [config]="{iconTitulo: calendarIcon, iconMensagem: calendarOffIcon, titulo: 'Vacinas agendadas', mensagem: 'Nenhuma vacina agendada' }"></app-vaccine-card>
+        [config]="{iconTitle: calendarIcon, iconVaccine: calendarIcon, iconMessage: calendarOffIcon, title: 'Vacinas agendadas', message: 'Nenhuma vacina agendada' }"
+        [vaccines]="vaccinesTaken$ | async"
+        (delete)="deleteVaccine($event)"
+        ></app-vaccine-card>
 
         <!-- vacinas tomadas -->
     <app-vaccine-card
-        [config]="{iconTitulo: checkIcon, iconMensagem: syringeIcon, titulo: 'Vacinas tomadas', mensagem: 'Nenhuma vacina registrada' }"></app-vaccine-card>
+        [config]="{iconTitle: checkIcon, iconVaccine: checkIcon, iconMessage: syringeIcon, title: 'Vacinas tomadas', message: 'Nenhuma vacina registrada' }"
+        [vaccines]="vaccinesFuture$ | async"
+        (delete)="deleteVaccine($event)"
+        ></app-vaccine-card>
 </div>
+
+@if(modalAberto) {
+    <app-modal-vaccine (close)="closeModal()" (confirm)="saveVaccine($event)"></app-modal-vaccine>
+
+}
