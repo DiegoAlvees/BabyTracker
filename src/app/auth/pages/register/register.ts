@@ -12,6 +12,7 @@ import { passwordMatchValidator } from '../../../validators/validations-errors';
 import { AuthService } from '../../services/auth.service';
 import type { RegisterRequest } from '../../models/register/register-request';
 import { CommonModule } from '@angular/common';
+import { ToastService } from '../../../home/services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -27,7 +28,7 @@ export class Register {
   mensagemErro: string = '';
   carregando: boolean = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef, private toast: ToastService) {
     this.form = this.fb.group(
       {
         nome: ['', [Validators.required, Validators.minLength(3)]],
@@ -63,7 +64,7 @@ export class Register {
     this.authService.register(dados).subscribe({
       next: (response) => {
         console.log('Registrado com sucesso:', response);
-        
+        this.toast.success('Registro efetuado com sucesso!')
         this.carregando = false;
         this.router.navigate(['cadastro-bebe']);
       },

@@ -10,8 +10,7 @@
         <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-8">
             <!-- input email -->
             <div class="relative">
-                <input formControlName="email" type="text" placeholder="Digite seu Email"
-                    class="input-primary" />
+                <input formControlName="email" type="text" placeholder="Digite seu Email" class="input-primary" />
                 <div class="input-icon">
 
                     <lucide-icon [img]="BabyIcon" class="w-6 h-6 text-white"></lucide-icon>
@@ -22,8 +21,7 @@
 
             <!-- input senha -->
             <div class="relative">
-                <input formControlName="senha" type="password" placeholder="Digite sua senha"
-                    class="input-primary"/>
+                <input formControlName="senha" type="password" placeholder="Digite sua senha" class="input-primary" />
                 <div class="input-icon">
 
                     <lucide-icon [img]="KeyIcon" class="w-6 h-6 text-white"></lucide-icon>
@@ -31,7 +29,12 @@
             </div>
 
 
-            <button [disabled]="form.invalid" [class]="form.invalid ? 'btn-invalid' : 'btn-primary'">Entrar</button>
+            <button class="btn-primary">Entrar</button>
+            @if(mensagemErro) {
+            <p class="text-red-600 text-sm">
+                <span class="font-bold">*</span>Email ou senha inválidos.
+            </p>
+            }
 
             <div class="text-center mt-6 pt-4 border-t border-gray-100">
                 <p class="text-gray-500">Novo por aqui? <a class="text-emerald-500 font-semibold cursor-pointer"

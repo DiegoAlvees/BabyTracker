@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -26,20 +26,30 @@ export class Login {
 
   protected form!: FormGroup;
   mensagemErro: string = '';
-  
+  submited = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private babyService: BabyService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private babyService: BabyService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+  ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.minLength(6)]],
     });
+    this.form.valueChanges.subscribe(() => {
+      if (this.mensagemErro) {
+        this.mensagemErro = '';
+      }
+    });
   }
 
-  
-
   protected submit() {
-    if (this.form.invalid) return;
+    this.submited = true;
 
+    if (this.form.invalid) return;
     this.mensagemErro = '';
 
     const dados: LoginRequest = {
@@ -49,34 +59,34 @@ export class Login {
 
     this.authService.login(dados).subscribe({
       next: (response) => {
+        this.submited = false;
+
         const user: User = {
           id: response.userId,
           nome: response.nome,
-          email:response.email,
-        }
+          email: response.email,
+        };
         console.log('Login realizado com sucesso:', response);
-        this.authService.saveUser(user)
+        this.authService.saveUser(user);
 
         this.babyService.getBaby().subscribe({
-        next: (baby) => {
-          if (baby) {
-            this.router.navigate(['/atividades']);
-          } else {
+          next: (baby) => {
+            if (baby) {
+              this.router.navigate(['/atividades']);
+            } else {
+              this.router.navigate(['/cadastro-bebe']);
+            }
+          },
+          error: () => {
             this.router.navigate(['/cadastro-bebe']);
-          }
-        },
-        error: () => {
-          this.router.navigate(['/cadastro-bebe']);
-        }
-      });
-
+          },
+        });
       },
       error: (erro) => {
         console.error('Erro ao fazer login:', erro);
-        this.mensagemErro = erro.error?.error || 'Erro ao fazer login.';
-      }
+        this.mensagemErro = 'Email ou senha inválidos';
+        this.cdr.detectChanges();
+      },
     });
-
-    
   }
 }

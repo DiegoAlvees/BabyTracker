@@ -14,14 +14,20 @@ export const passwordMatchValidator: ValidatorFn = (
 
 // valida se a data de nascimento do bebê não é maior que a data atual
 
-export const birthDateValidator: ValidatorFn = (
-    control: AbstractControl
-): ValidationErrors | null => {
-    const babyBirthDate = control.get('babyBirthDate')?.value;
-    if (!babyBirthDate) return null;
 
-    const selectedDate = new Date(babyBirthDate);
+export function birthDateValidator(
+  fieldName: string
+): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const birthDate = control.get(fieldName)?.value;
+    if (!birthDate) return null;
+
+    const selectedDate = new Date(birthDate);
     const today = new Date();
-    
-    return selectedDate > today ? {futureDate: true} : null;
+
+    selectedDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    return selectedDate > today ? { futureDate: true } : null;
+  };
 }

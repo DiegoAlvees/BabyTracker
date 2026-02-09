@@ -37,7 +37,7 @@ export class RegisterBaby {
         babyBirthDate: ['', [Validators.required]],
       },
       {
-        validators: [birthDateValidator],
+        validators: [birthDateValidator('babyBirthDate')],
         updateOn: 'blur',
       },
     );

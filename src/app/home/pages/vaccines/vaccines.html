@@ -3,14 +3,14 @@
 <!-- vacinas agendadas -->
     <app-vaccine-card
         [config]="{iconTitle: calendarIcon, iconVaccine: calendarIcon, iconMessage: calendarOffIcon, title: 'Vacinas agendadas', message: 'Nenhuma vacina agendada' }"
-        [vaccines]="vaccinesTaken$ | async"
+        [vaccines]="vaccinesFuture$ | async"
         (delete)="deleteVaccine($event)"
         ></app-vaccine-card>
 
         <!-- vacinas tomadas -->
     <app-vaccine-card
         [config]="{iconTitle: checkIcon, iconVaccine: checkIcon, iconMessage: syringeIcon, title: 'Vacinas tomadas', message: 'Nenhuma vacina registrada' }"
-        [vaccines]="vaccinesFuture$ | async"
+        [vaccines]="vaccinesTaken$ | async"
         (delete)="deleteVaccine($event)"
         ></app-vaccine-card>
 </div>

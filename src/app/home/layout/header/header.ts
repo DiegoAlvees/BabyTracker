@@ -17,7 +17,7 @@ export class Header implements OnInit {
   constructor(private babyService: BabyService) {}
 
   ngOnInit(): void {
-    this.babyService.getBaby().subscribe({
+    this.babyService.baby$.subscribe({
       next: (baby) => {
         this.baby = baby;
         if (baby) {

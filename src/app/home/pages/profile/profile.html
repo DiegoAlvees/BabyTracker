@@ -1,1 +1,58 @@
-<p>profile works!</p>
+<div class="px-3 py-4 mt-10 bg-white rounded-lg shadow-lg">
+
+  <!-- Título -->
+  <div class="flex items-center gap-2 mb-4">
+    <lucide-icon class="text-emerald-900" [img]="userIcon"></lucide-icon>
+    <h1 class="text-[22px] text-emerald-950">Perfil</h1>
+  </div>
+
+  <!-- Card: Dados do bebê -->
+  <div class="border border-emerald-100 rounded-xl p-4 mb-4">
+    <div class="flex items-center gap-2 mb-3">
+      <lucide-icon class="text-emerald-700" [img]="babyIcon"></lucide-icon>
+      <h2 class="text-[18px] text-emerald-900">Bebê</h2>
+    </div>
+
+    <div class="space-y-2 text-sm text-emerald-800">
+      <p>
+        <span class="text-gray-500">Nome:</span>
+        {{(baby$ | async)?.nome}}
+      </p>
+
+      <p>
+        <span class="text-gray-500">Data de nascimento:</span>
+        {{(baby$ | async)?.dataNascimento | date: 'dd/MM/yyyy'}}
+      </p>
+    </div>
+
+    <button (click)="openModal()" class="mt-4 w-full btn-primary">
+      Editar dados do bebê
+    </button>
+  </div>
+
+  <!-- Card: Conta -->
+  <div class="border border-emerald-100 rounded-xl p-4 mb-4">
+    <div class="flex items-center gap-2 mb-3">
+      <lucide-icon class="text-emerald-700" [img]="userIcon"></lucide-icon>
+      <h2 class="text-[18px] text-emerald-900">Conta</h2>
+    </div>
+
+    <p class="text-sm text-emerald-800">
+      <span class="text-gray-500">Email:</span>
+      {{user?.email}}
+    </p>
+  </div>
+
+  <!-- Card: Ações -->
+  <div class="border border-emerald-100 rounded-xl p-4">
+    <button (click)="logout()" class="w-full flex items-center justify-center gap-2 text-red-500 py-3 rounded-xl border border-red-200 active:bg-red-50 cursor-pointer hover:bg-red-50">
+      <lucide-icon class="w-4 h-4" [img]="logoutIcon"></lucide-icon>
+      Sair da conta
+    </button>
+  </div>
+
+  @if(modalOpen) {
+    <app-modal-profile (close)="closeModal()" (confirm)="UpdateBaby($event)"></app-modal-profile>
+  }
+
+</div>

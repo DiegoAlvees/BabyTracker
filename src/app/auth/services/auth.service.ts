@@ -23,6 +23,7 @@ export class AuthService {
   }
 
   saveUser(user: User): void {
+    localStorage.removeItem('baby_data');
     localStorage.setItem('user', JSON.stringify(user));
   }
 
@@ -42,5 +43,6 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('user');
+    localStorage.removeItem('baby_data');
   }
 }
