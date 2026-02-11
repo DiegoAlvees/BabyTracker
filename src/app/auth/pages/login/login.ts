@@ -27,6 +27,7 @@ export class Login {
   protected form!: FormGroup;
   mensagemErro: string = '';
   submited = false;
+  carregando: boolean = false
 
   constructor(
     private fb: FormBuilder,
@@ -51,6 +52,7 @@ export class Login {
 
     if (this.form.invalid) return;
     this.mensagemErro = '';
+    this.carregando = true
 
     const dados: LoginRequest = {
       email: this.form.value.email,
@@ -85,7 +87,9 @@ export class Login {
       error: (erro) => {
         console.error('Erro ao fazer login:', erro);
         this.mensagemErro = 'Email ou senha inválidos';
+        this.carregando = false;
         this.cdr.detectChanges();
+        
       },
     });
   }
