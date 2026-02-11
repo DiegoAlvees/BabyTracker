@@ -17,19 +17,17 @@ export class App {
 constructor(private http: HttpClient) {}
 
   ngOnInit() {
+    setTimeout(() => {
+      this.showApiWarning.set(false)
+    }, 9000);
+
     this.wakeApi()
   }
 
   private wakeApi() {
-    console.log('Tentando resposta com API...');
     this.http.get(`${API_URL}/babies?userId=1`).subscribe({
-      next: () => {
-        console.log('API acordou!');
-        this.showApiWarning.set(false);
-      },
-      error: (err) => {
-        console.log('API ainda demorando...', err);
-      }
-    });
+      next: () => console.log('API acordou!'),
+      error: () => console.log('API ainda demorando...')
+    })
   }
 }
