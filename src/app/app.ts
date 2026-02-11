@@ -9,4 +9,12 @@ import { RouterOutlet } from "@angular/router";
 })
 export class App {
   protected readonly title = signal('babytracker');
+
+  showApiWarning = signal(true);
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.showApiWarning.set(false)
+    }, 9000);
+  }
 }
