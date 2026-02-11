@@ -1,59 +1,35 @@
-# Babytracker
+# NanaBem – Diário do Bebê
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
 
-## Development server
 
-To start a local development server, run:
+Aplicativo web feito em **Angular** pensado para uso principalmente no **celular**, com funcionalidades de cadastro de bebê, rotinas e vacinas. Pode ser instalado como **PWA**(Progressive Web App).
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## ⚠️ Aviso sobre a API
 
-## Code scaffolding
+A API está hospedada no **Render Free**, ela fica "dormindo" por isso a primeira requisição pode demorar alguns segundos até que a API fique online e consiga efetuar login/registro  
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## 💻 Como acessar
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+A aplicação está hospedada em:
 
-```bash
-ng generate --help
-```
+- **Frontend (PWA)**: https://baby-care-rosy.vercel.app
+- **Backend (API)**: https://github.com/DiegoAlvees/BabyCareAPI
 
-## Building
+---
 
-To build the project run:
 
-```bash
-ng build
-```
+## 💚 Tecnologias usadas
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- Angular 21  
+- Tailwind CSS  
+- RxJS / Signals  
+- Render Free (backend)  
+- Vercel (frontend)
 
-## Running unit tests
+---
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
